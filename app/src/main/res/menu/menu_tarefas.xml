@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.TarefaActivity">
+    <item
+        android:id="@+id/menu_item_nova_tarefa"
+        android:orderInCategory="100"
+        android:title="@string/nova_tarefa"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,6 @@
+CREATE TABLE tarefa (
+ _id INTEGER PRIMARY KEY
+ ,nome TEXT NOT NULL
+ ,descricao TEXT NOT NULL
+ ,ciclos INT NOT NULL
+);
