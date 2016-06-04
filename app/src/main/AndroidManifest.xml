@@ -15,9 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TarefaActivity"></activity>
-        <activity android:name=".activity.FormTarefaActivity"></activity>
-
+        <activity android:name=".activity.TarefaActivity" />
+        <activity android:name=".activity.FormTarefaActivity" />
+        <activity android:name=".activity.PomodoroActivity"></activity>
+        <service android:name=".service.BoundService" ></service>
     </application>
 
 </manifest>

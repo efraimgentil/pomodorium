@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import org.flywaydb.core.Flyway;
-import org.flywaydb.core.api.android.ContextHolder;
-import org.sqldroid.DroidDataSource;
 
 /**
  * Created by efraimgentil on 25/05/16.

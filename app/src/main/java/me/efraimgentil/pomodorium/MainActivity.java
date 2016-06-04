@@ -6,14 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.flywaydb.core.Flyway;
-import org.flywaydb.core.api.android.ContextHolder;
-import org.sqldroid.DroidDataSource;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import me.efraimgentil.pomodorium.activity.PomodoroActivity;
 import me.efraimgentil.pomodorium.activity.TarefaActivity;
 import me.efraimgentil.pomodorium.activity.TarefasFragment;
 import me.efraimgentil.pomodorium.model.Tarefa;
@@ -27,31 +20,9 @@ public class MainActivity extends AppCompatActivity implements TarefasFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        /*DroidDataSource dataSource = new DroidDataSource(getPackageName(), "db1");
-
-
-        ContextHolder.setContext(this);
-        Flyway flyway = new Flyway();
-        flyway.setDataSource(dataSource);
-        flyway.migrate();
-
-
-        try {
-            Connection connection = dataSource.getConnection();
-            ResultSet resultSet = connection.prepareStatement("SELECT * FROM pessoas ").executeQuery();
-            while( resultSet.next() ){
-                System.out.println( resultSet.getInt("_id") );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
         fragment = new TarefasFragment( );
         final android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add( R.id.tarefas_container , fragment ).commit();
-
     }
 
     @Override
@@ -80,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements TarefasFragment.O
 
     @Override
     public void onListFragmentInteraction(Tarefa item) {
-
+        Intent intent = new Intent(MainActivity.this , PomodoroActivity.class );
+        intent.putExtra("tarefa" , item );
+        startActivity( intent );
     }
 }

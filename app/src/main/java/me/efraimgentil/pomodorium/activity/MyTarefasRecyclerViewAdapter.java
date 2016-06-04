@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import me.efraimgentil.pomodorium.R;
@@ -44,16 +45,10 @@ public class MyTarefasRecyclerViewAdapter extends RecyclerView.Adapter<MyTarefas
         holder.nome.setText(mValues.get(position).getNome() );
         holder.descricao.setText(mValues.get(position).getDescricao());
         holder.ciclos.setText("Ciclos: " + mValues.get(position).getCiclos());
-
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
+        holder.ciclos.setText("Ciclos: " + mValues.get(position).getCiclos());
+        holder.buttonStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+                mListener.onListFragmentInteraction(holder.mItem);
             }
         });
     }
@@ -68,6 +63,7 @@ public class MyTarefasRecyclerViewAdapter extends RecyclerView.Adapter<MyTarefas
         public final TextView nome;
         public final TextView descricao;
         public final TextView ciclos;
+        public final Button buttonStart;
         public Tarefa mItem;
 
         public ViewHolder(View view) {
@@ -76,6 +72,7 @@ public class MyTarefasRecyclerViewAdapter extends RecyclerView.Adapter<MyTarefas
             nome = (TextView) view.findViewById(R.id.tarefas_txt_task_name);
             descricao = (TextView) view.findViewById(R.id.tarefas_txt_description);
             ciclos = (TextView) view.findViewById(R.id.tarefas_txt_ciclos);
+            buttonStart = (Button) view.findViewById(R.id.tarefas_btn_start);
         }
 
 
