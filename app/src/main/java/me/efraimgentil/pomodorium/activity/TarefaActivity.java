@@ -17,7 +17,7 @@ import me.efraimgentil.pomodorium.model.Tarefa;
 public class TarefaActivity extends AppCompatActivity implements ListTarefaFragment.OnListFragmentInteractionListener {
 
     TarefaDao tarefaDao;
-    private Fragment listFragment;
+    private ListTarefaFragment listFragment;
 
 
     @Override
@@ -51,6 +51,18 @@ public class TarefaActivity extends AppCompatActivity implements ListTarefaFragm
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        listFragment.refreshList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     @Override
     public void onListFragmentInteraction(View v, Tarefa item , Intention intention) {
         switch (intention){
@@ -62,6 +74,8 @@ public class TarefaActivity extends AppCompatActivity implements ListTarefaFragm
                 startActivity( intent );
                 break;
             case REMOVER:
+                listFragment.getTarefaDao().delete( item );;
+                listFragment.refreshList();
                 break;
         }
         Log.i("Teste", item.toString() );

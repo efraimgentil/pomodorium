@@ -41,8 +41,6 @@ public class FormTarefaActivity extends AppCompatActivity {
         final android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         formFragment.setTarefa( tarefa );
         ft.add( R.id.teste , formFragment ).commit();
-
-
     }
 
     @Override
@@ -51,32 +49,16 @@ public class FormTarefaActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate( R.menu.menu_tarefas , menu  );
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final int itemId = item.getItemId();
-        switch ( itemId){
-            case R.id.menu_item_nova_tarefa:
-
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
     public void executaAcao(View view){
 
         tarefa.setNome(  ((TextView)  findViewById(R.id.ipt_nome)).getText().toString()  );
         tarefa.setDescricao(  ((TextView)  findViewById(R.id.ipt_descricao)).getText().toString()  );
         tarefa.setCiclos(  new Integer( ((TextView)  findViewById(R.id.ipt_ciclos)).getText().toString() ) );
-        tarefaDao.insert( tarefa );
+        if(tarefa.getId() != null){
+            tarefaDao.update(tarefa);
+        }else {
+            tarefaDao.insert(tarefa);
+        }
         finish();
     }
 

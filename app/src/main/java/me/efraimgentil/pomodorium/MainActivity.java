@@ -15,8 +15,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import me.efraimgentil.pomodorium.activity.TarefaActivity;
+import me.efraimgentil.pomodorium.activity.TarefasFragment;
+import me.efraimgentil.pomodorium.model.Tarefa;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TarefasFragment.OnListFragmentInteractionListener {
+
+    private TarefasFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
+        fragment = new TarefasFragment( );
+        final android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add( R.id.tarefas_container , fragment ).commit();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        fragment.refreshList();
     }
 
     @Override
@@ -64,4 +78,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onListFragmentInteraction(Tarefa item) {
+
+    }
 }

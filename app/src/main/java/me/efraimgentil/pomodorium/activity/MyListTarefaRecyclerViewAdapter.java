@@ -24,12 +24,16 @@ import java.util.List;
  */
 public class MyListTarefaRecyclerViewAdapter extends RecyclerView.Adapter<MyListTarefaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Tarefa> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private List<Tarefa> mValues;
+    private OnListFragmentInteractionListener mListener;
 
     public MyListTarefaRecyclerViewAdapter(List<Tarefa> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
+    }
+
+    public void setmValues(List<Tarefa> mValues) {
+        this.mValues = mValues;
     }
 
     @Override
@@ -64,7 +68,7 @@ public class MyListTarefaRecyclerViewAdapter extends RecyclerView.Adapter<MyList
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,  MenuItem.OnMenuItemClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         public final View mView;
         public final TextView nome;
         public final TextView descricao;
@@ -105,12 +109,5 @@ public class MyListTarefaRecyclerViewAdapter extends RecyclerView.Adapter<MyList
             });
         }
 
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-
-
-
-            return false;
-        }
     }
 }

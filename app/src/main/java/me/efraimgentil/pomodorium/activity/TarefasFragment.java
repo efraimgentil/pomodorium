@@ -6,14 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import me.efraimgentil.pomodorium.R;
+import me.efraimgentil.pomodorium.activity.dummy.DummyContent;
+import me.efraimgentil.pomodorium.activity.dummy.DummyContent.DummyItem;
 import me.efraimgentil.pomodorium.dao.TarefaDao;
-import me.efraimgentil.pomodorium.model.Intention;
 import me.efraimgentil.pomodorium.model.Tarefa;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ListTarefaFragment extends Fragment {
+public class TarefasFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -32,20 +32,20 @@ public class ListTarefaFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private TarefaDao tarefaDao;
-    private MyListTarefaRecyclerViewAdapter adapter;
+
+    private MyTarefasRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ListTarefaFragment() {
+    public TarefasFragment() {
     }
-
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ListTarefaFragment newInstance(int columnCount) {
-        ListTarefaFragment fragment = new ListTarefaFragment();
+    public static TarefasFragment newInstance(int columnCount) {
+        TarefasFragment fragment = new TarefasFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -62,14 +62,9 @@ public class ListTarefaFragment extends Fragment {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_listtarefa_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_tarefas_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -80,22 +75,18 @@ public class ListTarefaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter=  new MyListTarefaRecyclerViewAdapter( tarefaDao.findAll() , mListener);
+            adapter = new MyTarefasRecyclerViewAdapter( tarefaDao.findAll() , mListener );
             recyclerView.setAdapter( adapter );
         }
         return view;
     }
 
 
-    public void refreshList(){
-        adapter.setmValues( tarefaDao.findAll() );
-        adapter.notifyDataSetChanged();
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        tarefaDao = new TarefaDao( context );
+
+        tarefaDao= new TarefaDao(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -110,12 +101,9 @@ public class ListTarefaFragment extends Fragment {
         mListener = null;
     }
 
-    public MyListTarefaRecyclerViewAdapter getAdapter() {
-        return adapter;
-    }
-
-    public TarefaDao getTarefaDao() {
-        return tarefaDao;
+    public void refreshList(){
+        adapter.setmValues( tarefaDao.findAll() );
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -130,6 +118,6 @@ public class ListTarefaFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(View v, Tarefa item , Intention intention );
+        void onListFragmentInteraction(Tarefa item);
     }
 }

@@ -33,12 +33,20 @@ public class TarefaDao extends GenericDao<Tarefa> {
 
     @Override
     public void update(Tarefa tarefa) {
-
+        final SQLiteDatabase db = writableDB();
+        ContentValues values = new ContentValues();
+        values.put( Tarefa.NOME , tarefa.getNome() );
+        values.put( Tarefa.DESCRICAO , tarefa.getDescricao() );
+        values.put( Tarefa.CICLOS , tarefa.getCiclos() );
+        db.update( Tarefa.TABELA , values , "_id = ?" , new String[]{ String.valueOf(tarefa.getId() ) });
+        db.close();
     }
 
     @Override
     public void delete(Tarefa tarefa) {
-
+        final SQLiteDatabase db = writableDB();
+        db.delete(  Tarefa.TABELA , "_id = ?" , new String[]{ String.valueOf(tarefa.getId() ) } );
+        db.close();
     }
 
     @Override
