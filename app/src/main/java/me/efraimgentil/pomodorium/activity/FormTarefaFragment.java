@@ -36,7 +36,10 @@ public class FormTarefaFragment extends Fragment {
         if(tarefa != null) {
             ((TextView) inflate.findViewById(R.id.ipt_nome)).setText(tarefa.getNome());
             ((TextView) inflate.findViewById(R.id.ipt_descricao)).setText(tarefa.getDescricao());
-            ((TextView) inflate.findViewById(R.id.ipt_ciclos)).setText( String.valueOf( tarefa.getCiclos() ));
+            final Integer ciclos = tarefa.getCiclos();
+            if(ciclos != null) {
+                ((TextView) inflate.findViewById(R.id.ipt_ciclos)).setText(String.valueOf(ciclos));
+            }
         }
         return inflate;
     }

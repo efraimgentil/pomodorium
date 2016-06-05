@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import me.efraimgentil.pomodorium.R;
+import me.efraimgentil.pomodorium.dao.TarefaDao;
 import me.efraimgentil.pomodorium.model.Pomodoro;
 import me.efraimgentil.pomodorium.model.Tarefa;
 import me.efraimgentil.pomodorium.service.BoundService;
@@ -25,12 +26,14 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroObser
     private Intent serviceIntent;
     private Tarefa tarefa;
     private Handler handler;
+    private TarefaDao tarefaDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pomodoro);
 
+        tarefaDao = new TarefaDao(PomodoroActivity.this);
         tarefa = (Tarefa) getIntent().getExtras().get("tarefa");
 
         serviceConnection = new BoundServiceConnection(this , tarefa );
@@ -100,7 +103,10 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroObser
                                 "OK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
+                                        tarefa.setConcluido(true);
+                                        tarefaDao.update( tarefa );
                                         dialog.cancel();
+                                        finish();
                                     }
                                 });
                         builder.create().show();

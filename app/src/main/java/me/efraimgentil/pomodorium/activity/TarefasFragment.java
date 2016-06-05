@@ -75,7 +75,7 @@ public class TarefasFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyTarefasRecyclerViewAdapter( tarefaDao.findAll() , mListener );
+            adapter = new MyTarefasRecyclerViewAdapter( tarefaDao.findAllNaoConcluido() , mListener );
             recyclerView.setAdapter( adapter );
         }
         return view;
@@ -102,7 +102,7 @@ public class TarefasFragment extends Fragment {
     }
 
     public void refreshList(){
-        adapter.setmValues( tarefaDao.findAll() );
+        adapter.setmValues( tarefaDao.findAllNaoConcluido() );
         adapter.notifyDataSetChanged();
     }
 

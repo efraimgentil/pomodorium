@@ -7,17 +7,18 @@ import java.io.Serializable;
  */
 public class Tarefa implements Serializable {
 
-    public static String TABELA = "tarefa";
-    public static String ID = "_id";
-    public static String NOME = "nome";
-    public static String DESCRICAO = "descricao";
-    public static String CICLOS = "ciclos";
+    public static final String CONCLUIDO = "concluido";
+    public static final String TABELA = "tarefa";
+    public static final String ID = "_id";
+    public static final String NOME = "nome";
+    public static final String DESCRICAO = "descricao";
+    public static final String CICLOS = "ciclos";
 
     private Integer id;
     private String nome;
     private String descricao;
     private Integer ciclos;
-
+    private boolean concluido;
 
 
     @Override
@@ -60,6 +61,14 @@ public class Tarefa implements Serializable {
 
     public void setCiclos(Integer ciclos) {
         this.ciclos = ciclos;
+    }
+
+    public boolean isConcluido() {
+        return concluido;
+    }
+
+    public void setConcluido(boolean concluido) {
+        this.concluido = concluido;
     }
 }
 
