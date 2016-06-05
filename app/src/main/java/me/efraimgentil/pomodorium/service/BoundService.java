@@ -25,6 +25,7 @@ public class BoundService extends Service implements ServiceNotifier{
     private boolean stop;
     private boolean isCountStarted;
     private List<PomodoroObserver> observers = new ArrayList<>();
+    private Pomodoro pomodoro;
 
     public BoundService() {
         this.stop = false;
@@ -39,7 +40,7 @@ public class BoundService extends Service implements ServiceNotifier{
 
     public void startCounter(final Tarefa tarefa) {
 
-        final Pomodoro pomodoro = new Pomodoro(tarefa);
+        pomodoro = new Pomodoro(tarefa);
         isCountStarted = true;
         new Thread(new Runnable() {
             @Override
@@ -48,7 +49,8 @@ public class BoundService extends Service implements ServiceNotifier{
                     try {
                         if (isCountStarted) {
                             final String currentCicleTime = pomodoro.getCurrentCicleTime();
-                            if ("00:00".equals(currentCicleTime)) {
+                            if (pomodoro.getTimeInSeconds() <= 0) {
+                                isCountStarted = false;
                                 if(pomodoro.isCiclesEnded()){
                                     notifyEvent(pomodoro, currentCicleTime, PomodoroEvent.COMPLETE );
                                 }else {
@@ -79,6 +81,11 @@ public class BoundService extends Service implements ServiceNotifier{
         for (PomodoroObserver observer: observers ) {
             observer.receiveNewValue(pomodoro , newTime , event );
         }
+    }
+
+    public void startNewCicle(){
+        isCountStarted= true;
+        pomodoro.prepareNewCicle();
     }
 
     public void stopCounter() {

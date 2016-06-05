@@ -12,6 +12,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Pomodoro implements Serializable {
 
+    private final int CICLE_TIME =  10; //60 * 25;// 25 minutos
+    private final int BIG_INTERVAL = 60 * 15; //15 minutos de intervalo
+    private final int SMALL_INTERVAL = 5; //60 * 5; // 5 minutos de intervalo
+
     private Tarefa tarefa;
     private Integer maxCicles;
     private Integer currentCicle;
@@ -24,25 +28,30 @@ public class Pomodoro implements Serializable {
         this.currentCicle = 1;
         maxCicles = tarefa.getCiclos();
         interval = false;
-        timeInSeconds = new AtomicInteger( 60 * 25 ); // 25 minutos
+        timeInSeconds = new AtomicInteger(CICLE_TIME );
     }
 
     public void prepareNewCicle(){
         if(interval){
+            interval= false;
             currentCicle++;
-            timeInSeconds = new AtomicInteger( 60 * 25 ); // 25 minutos
+            timeInSeconds = new AtomicInteger( CICLE_TIME);
         }else{
             interval = true;
             if(currentCicle % 3 == 0){
-                timeInSeconds = new AtomicInteger( 60 * 15 ); //15 minutos de intervalo
+                timeInSeconds = new AtomicInteger( BIG_INTERVAL);
             }else{
-                timeInSeconds = new AtomicInteger( 60 * 5 );// 5 minutos de intervalo
+                timeInSeconds = new AtomicInteger( SMALL_INTERVAL );
             }
         }
     }
 
     public boolean isCiclesEnded(){
         return maxCicles.equals(currentCicle);
+    }
+
+    public int getTimeInSeconds(){
+        return timeInSeconds.get();
     }
 
     public String getCurrentCicleTime(){

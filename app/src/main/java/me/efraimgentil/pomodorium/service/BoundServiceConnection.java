@@ -38,6 +38,10 @@ public class BoundServiceConnection implements ServiceConnection {
         connected = false;
     }
 
+    public BoundService getService(){
+        return binder.getService();
+    }
+
     public boolean isConnected() {
         return connected;
     }
