@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -68,16 +69,29 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroObser
 
     @Override
     public void receiveNewValue(final Pomodoro pomodoro, final String newTime, final PomodoroEvent event) {
-        Log.i("pomodoro" , newTime );
         handler.post(new Runnable() {
             @Override
             public void run() {
+                MediaPlayer mp;
                 switch (event){
                     case UPDATE:
                         ((TextView)findViewById(R.id.pomodoro_txt_timer)).setText( newTime );
                         break;
                     case END_CICLE:
                         ((TextView)findViewById(R.id.pomodoro_txt_timer)).setText( newTime );
+
+                        mp = MediaPlayer.create(PomodoroActivity.this, R.raw.alarm );
+                        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                // TODO Auto-generated method stub
+                                mp.release();
+                            }
+
+                        });
+                        mp.start();
+
                         AlertDialog.Builder builder1 = new AlertDialog.Builder(PomodoroActivity.this);
                         if(pomodoro.isInterval()){
                             builder1.setMessage("Está na hora de voltar ao trabalho.");
@@ -96,6 +110,19 @@ public class PomodoroActivity extends AppCompatActivity implements PomodoroObser
                         builder1.create().show();
                         break;
                     case COMPLETE:
+                        mp = MediaPlayer.create(PomodoroActivity.this, R.raw.ff7bw );
+                        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                // TODO Auto-generated method stub
+                                mp.release();
+                            }
+
+                        });
+                        mp.start();
+
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(PomodoroActivity.this);
                         builder.setMessage("Vocẽ completou todos os pomodoros.");
                         builder.setCancelable(false);

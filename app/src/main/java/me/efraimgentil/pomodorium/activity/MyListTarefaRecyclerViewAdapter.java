@@ -49,7 +49,7 @@ public class MyListTarefaRecyclerViewAdapter extends RecyclerView.Adapter<MyList
         holder.mItem = mValues.get(position);
         holder.nome.setText(mValues.get(position).getNome() );
         holder.descricao.setText(mValues.get(position).getDescricao());
-        holder.ciclos.setText("Ciclos: " + mValues.get(position).getCiclos());
+        holder.ciclos.setText("Ciclos: " + mValues.get(position).getCiclos() +  ( mValues.get(position).isConcluido() ? " (Concluido)" : "" ) );
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +93,14 @@ public class MyListTarefaRecyclerViewAdapter extends RecyclerView.Adapter<MyList
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Ações");
+            final MenuItem marcar = menu.add(0, v.getId(), 0, "Marcar com não Concluido");//groupId, itemId, order, title
+            marcar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    mItem.setConcluido(false);
+                    mListener.onListFragmentInteraction( mView , mItem , Intention.MARCAR_COMO_NAO_CONCLUIDO );
+                    return true;
+                }
+            });
             final MenuItem editar = menu.add(0, v.getId(), 0, "Editar");//groupId, itemId, order, title
             editar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {

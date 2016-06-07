@@ -68,6 +68,10 @@ public class TarefaActivity extends AppCompatActivity implements ListTarefaFragm
         switch (intention){
             case CLICK:
                 break;
+            case MARCAR_COMO_NAO_CONCLUIDO:
+                listFragment.getTarefaDao().update( item );
+                listFragment.refreshList();
+                break;
             case EDTIAR:
                 final Intent intent = new Intent(TarefaActivity.this, FormTarefaActivity.class);
                 intent.putExtra("tarefa" , item );

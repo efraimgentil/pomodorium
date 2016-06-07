@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.efraimgentil.pomodorium.R;
-import me.efraimgentil.pomodorium.activity.dummy.DummyContent;
-import me.efraimgentil.pomodorium.activity.dummy.DummyContent.DummyItem;
 import me.efraimgentil.pomodorium.dao.TarefaDao;
 import me.efraimgentil.pomodorium.model.Tarefa;
 

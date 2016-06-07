@@ -6,6 +6,7 @@ package me.efraimgentil.pomodorium.model;
 public enum Intention {
 
     CLICK,
+    MARCAR_COMO_NAO_CONCLUIDO,
     EDTIAR,
     REMOVER;
 
